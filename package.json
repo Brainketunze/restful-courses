@@ -1,0 +1,15 @@
+{
+  "name": "todolist-manager-group1",
+  "version": "1.0.0",
+  "description": "refactoring a todo app using json-server",
+  "private": "false",
+  "main": "server.js",
+  "scripts": {
+    "start": "json-server --watch db.json"
+  },
+  "author": "@hackyourfuturebelgium",
+  "license": "CC BY-SA",
+  "dependencies": {
+    "json-server": "^0.16.1"
+  }
+}
