@@ -17,7 +17,7 @@ A collection of user stories you can choose from. Stories inside of each priorit
 > these will complete the user experience, but are not necessary
 
 - [ ] As a user I want to see the home page so that i can see what is happening.
--  _when the user open the home page all the course data is shown_.
+  - _when the user open the home page all the course data is shown_.
   - Create a frontend for the application
   - Make sure that the frontend and backend communicate with each other
 
