@@ -1,4 +1,3 @@
-
 // FRAMEWORK
 
 const express = require('express');
@@ -7,15 +6,19 @@ const fs = require('fs');
 
 app.use(express.json());
 
+
+// READ courses.json file
+const coursesPatch = __dirname + '/courses.json';
+
 app.get('/', (req, res) => {
     res.send('Hello from Group1');
     }); 
+
 
 // READ courses.json file
 const coursesPatch = __dirname + '/courses.json';
 
 // GET a single course by id from courses.json
-
 app.get('/courses.json/:id', (req, res) => {
     fs.readFile(coursesPatch, 'utf-8', (err, courses) => {
       if (err) {
@@ -30,6 +33,7 @@ app.get('/courses.json/:id', (req, res) => {
       res.send(course);
     });
   });
+
 // GET all courses 
 app.get('/courses.json',  (req, res) => {
     fs.readFile(coursesPatch, 'utf-8', (err, courses) => {
@@ -41,8 +45,6 @@ app.get('/courses.json',  (req, res) => {
     });
   });
 
-
-    //PORT
+//PORT
 const port = process.env.PORT || 3000; 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
