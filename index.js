@@ -1,11 +1,22 @@
-console.log('Starting the app');
-const express = require('express');
-//our application
-const app = express();
-//end-point and callback function (Route handler)
-app.get('/', (req, res) =>{
-    res.send('Hello World');
-});
 
-//pass a callback function
-app.listen(3000, () => console.log('listening on port 3000...'));
+// FRAMEWORKS
+
+const express = require('express');
+const app = express();
+
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.send('Hello from Group1');
+    }); 
+
+// READ courses.json file
+const COURSES_PATH = __dirname + '/courses.json';
+
+
+
+    //PORT
+const port = process.env.PORT || 3000; 
+app.listen(port, () => console.log(`Listening on port ${port}...`));
+
