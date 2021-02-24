@@ -1,8 +1,8 @@
 {
   "name": "restful-courses",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Refactorying REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48",
+  "main": "./public/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,12 +11,20 @@
     "url": "git+https://github.com/Brainketunze/restful-courses.git"
   },
   "keywords": [],
-  "author": "Group 1",
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brainketunze/restful-courses/issues"
+  },
+  "homepage": "https://github.com/Brainketunze/restful-courses#readme",
   "dependencies": {
+
     "express": "^4.17.1",
     "fs-js": "^1.0.6",
     "joi": "^17.2.1",
     "nodemon": "^2.0.6"
+
+   
+
   }
 }

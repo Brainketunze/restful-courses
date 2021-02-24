@@ -1,3 +1,4 @@
+
 // FRAMEWORKS
 
 const express = require('express');
@@ -18,3 +19,4 @@ const COURSES_PATH = __dirname + '/courses.json';
     //PORT
 const port = process.env.PORT || 3000; 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
