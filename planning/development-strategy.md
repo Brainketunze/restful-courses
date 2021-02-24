@@ -29,7 +29,7 @@ This part is create in a branch called `data` and merged in the `master` when it
 - Added  `port`
 - Added  `data`
 ---
-## 2. Create new course
+## 2. Get a single course
 
 > Assigned to _Krystyna_
 
@@ -54,7 +54,7 @@ This part is create in a branch called `create-course` and merged in the `master
 
 **As a site visitor, I want to see all courses list on the terminal or localhost so that I can examine the list.**
 
-This user story has been developed through a branch called 'read'.
+This user story has been developed through a branch called `get-all`.
 
 > Assign to _Krystyna & Liubov_
 
