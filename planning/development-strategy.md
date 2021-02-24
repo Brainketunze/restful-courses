@@ -21,20 +21,22 @@ _A User can see the initial repository and live demo_
 
 ---
 
-## 1. initial-application
+## 1. Data
 
-**As a user when I visit a website I want to see what the website is about and what I can do with**
+**As a user I want to send GET-request to my server or local-host and get the data from json-file**
 
-This part is create in a branch called `initial-app` and merged in the `master` when it was completed.
-
+This part is create in a branch called `data` and merged in the `master` when it was completed.
+- Added  `port`
+- Added  `data`
 ---
-## 2. create courses
+## 2. Create new course
 
 > Assigned to _Krystyna_
 
 **As a user I want to be able to create course with a specific course name**
 
 This part is create in a branch called `create-course` and merged in the `master` when it was completed.
+
 ### Task C: JS
 
 - Added one route
