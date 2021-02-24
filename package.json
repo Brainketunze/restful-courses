@@ -1,16 +1,21 @@
 {
-  "name": "todolist-manager-group1",
+  "name": "restful-courses",
   "version": "1.0.0",
-  "description": "refactoring a todo app using json-server",
-  "private": "false",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "json-server --watch db.json"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "@hackyourfuturebelgium",
-  "license": "CC BY-SA",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brainketunze/restful-courses.git"
+  },
+  "keywords": [],
+  "author": "Group 1",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "json-server": "^0.16.1"
+    "joi": "^17.2.1",
+    "nodemon": "^2.0.6"
   }
 }
