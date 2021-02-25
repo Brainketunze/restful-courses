@@ -1,13 +1,9 @@
 
 
-
-
-
 // delete by ID
 
 app.delete('/data/courses.json/:id', (req, res) => {
     // read the file system and look up the course by ID
-    // if doesn't exist - return 404
     fs.readFile(coursesPath, 'utf-8', (err, courses) => {
       if (err) {
         return console.error(err);
@@ -15,7 +11,7 @@ app.delete('/data/courses.json/:id', (req, res) => {
   
       let myCourses = JSON.parse(data);
       const removeCourse = myCourses.find((c) => c.id === parseInt(req.params.id));
-  
+      // if doesn't exist - return 404
       if (!removeCourse) return res.status(404).send('The course with the given ID was not found');
   
       // delete
