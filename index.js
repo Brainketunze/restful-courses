@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const Joi = require("joi");
 
 app.use(express.json());
 
@@ -33,6 +34,7 @@ app.get('/courses.json/:id', (req, res) => {
       res.send(course);
     });
   });
+
   
 //CREATE a new course
 
@@ -74,6 +76,7 @@ app.post('/courses.json', (req, res) => {
     });
     return schema.validate(course);
   }
+
 
 // GET all courses 
 app.get('/courses.json',  (req, res) => {
