@@ -9,17 +9,17 @@ A collection of user stories you can choose from. Stories inside of each priorit
 - [ ] As a site visitor, I want to see all courses list on the terminal so that I can examine the all courses list ...
   - _When user pass courses path as url afterwards it will show all list of courses_
   - Make sure that the files work as they should work
-  - Create a frontend for the application
-  - Make sure that the frontend and backend communicate with each other
   - Store the user data/input into a separate json file
-  - Deploy the application to Heruko or another app hosting providers
+  - Deploy the application to Heroku or another app hosting providers
 
 ## Should-Haves
 
 > these will complete the user experience, but are not necessary
 
-- [ ] As a ... I want to ... so that ...
-  - _Given [context] when [a specific action is performed] then [a set of consequences should occur]_
+- [ ] As a user I want to see the home page so that i can see what is happening.
+  - _when the user open the home page all the course data is shown_.
+  - Create a frontend for the application
+  - Make sure that the frontend and backend communicate with each other
 
 ## Could-Haves
 
