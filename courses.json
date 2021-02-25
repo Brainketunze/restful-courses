@@ -10,5 +10,17 @@
     {
       "id": 3,
       "name": "Mosh"
+    },
+    {
+      "id": 4,
+      "name": "REpresentational"
+    },
+    {
+      "id": 5,
+      "name": "State"
+    },
+    {
+      "id": 6,
+      "name": "Transfer"
     }
 ]
