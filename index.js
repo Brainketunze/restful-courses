@@ -31,7 +31,48 @@ app.get('/courses.json/:id', (req, res) => {
       res.send(course);
     });
   });
+  
+//CREATE a new course
 
+app.post('/courses.json', (req, res) => {
+   
+    const { error } = validateCourse(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+  
+    fs.readFile(coursesPatch, 'utf-8', (err, courses) => {
+      if (err) {
+        console.error(err);
+      }
+     
+      console.log(typeof courses);
+      const parsedCourses = JSON.parse(courses);
+  
+      const course = {
+        id: parsedCourses.length + 1,
+        name: req.body.name,
+      };
+      parsedCourses.push(course);
+  
+      const stringifiedCourses = JSON.stringify(parsedCourses, null, 1);
+  
+      fs.writeFile(coursesPatch, stringifiedCourses, 'utf-8', (err) => {
+        if (err) {
+          res.status(500).send(err.message);
+        }
+      });
+      res.send(parsedCourses);
+    });
+  });
+  
+  // VALIDATE course function
+
+
+  function validateCourse(course) {
+    const schema = Joi.object({
+      name: Joi.string().min(3).required(),
+    });
+    return schema.validate(course);
+  }
 
     //PORT
 const port = process.env.PORT || 3000; 
