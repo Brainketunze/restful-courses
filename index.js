@@ -9,15 +9,11 @@ app.use(express.json());
 
 
 // READ courses.json file
-const coursesPatch = __dirname + '/courses.json';
+const coursesPatch = `${__dirname}/courses.json`;
 
 app.get('/', (req, res) => {
     res.send('Hello from Group1');
     }); 
-
-
-// READ courses.json file
-const coursesPatch = __dirname + '/courses.json';
 
 // GET a single course by id from courses.json
 app.get('/courses.json/:id', (req, res) => {
@@ -49,7 +45,7 @@ app.post('/courses.json', (req, res) => {
       }
      
       console.log(typeof courses);
-      const parsedCourses = JSON.parse(courses);
+      let parsedCourses = JSON.parse(courses);
   
       const course = {
         id: parsedCourses.length + 1,
@@ -91,10 +87,10 @@ app.get('/courses.json',  (req, res) => {
 
 
 //UPDATE or EDIT
-app.put('courses.json/:id', (req, res) => {
-  fs.readFile(coursesPatch, 'utf-8', (err, courses) => {
+app.put('/api/courses/:id/', (req, res) => {
+  fs.readFile(coursesPatch, 'utf-8', (err) => {
     if (err) {
-      return console.error(err);
+    console.error(err);
     }
 
   const course = allCourses.find((c) => c.id === parseInt(req.params.id));
@@ -111,6 +107,7 @@ app.put('courses.json/:id', (req, res) => {
   res.send(course); //Return the update course
   });
 });
+
 
 
 

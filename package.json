@@ -18,13 +18,10 @@
   },
   "homepage": "https://github.com/Brainketunze/restful-courses#readme",
   "dependencies": {
-
     "express": "^4.17.1",
     "fs-js": "^1.0.6",
-    "joi": "^17.2.1",
-    "nodemon": "^2.0.6"
-
-   
-
+    "joi": "^17.4.0",
+    "node": "^15.8.0",
+    "nodemon": "^2.0.7"
   }
 }
