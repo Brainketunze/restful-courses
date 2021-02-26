@@ -18,7 +18,7 @@ Refactorying REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48
 
 ## Screenshots
 
-![Example screenshot](https://github.com/Brainketunze/restful-courses/blob/main/planning/Screenshot%202021-02-26%20at%2013.52.11.png)
+![Example screenshot](https://github.com/Brainketunze/restful-courses/blob/main/planning/Screenshot.png)
 
 ## Technologies
 
