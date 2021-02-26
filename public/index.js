@@ -10,15 +10,15 @@ app.use(express.json());
 
 
 // READ courses.json file
-const coursesPatch = `${__dirname}/courses.json`;
+const coursesPatch = `./courses.json`;
 
 app.get('/', (req, res) => {
   res.send(`<body style="background: coral">
   <div style="text-align:center; margin-top:10%; ">
   <h3 style="color:gold">Group-1</h3>
   <h1>Welcome to  RESTFUL API courses </h1>
-  <h2><a href="http://localhost:3000/api/courses" style ="color : blue">Access all the courses</h2></a>
-  <h2><a href="http://localhost:3000/api/courses/1" style ="color : blue">Access a specific course with id</h2></a>
+  <h2><a href="./api/courses" style ="color : blue">Access all the courses</h2></a>
+  <h2><a href="./api/courses/1" style ="color : blue">Access a specific course with id</h2></a>
   <h2><a href="https://www.postman.com/" style ="color : blue">Use Postman to: </a><span style ="color : red"> <br> GET <br>POST <br> PUT <br>DELETE</span></h3>
 </div></body> `);
 });
@@ -90,8 +90,9 @@ app.get('/api/courses/', (req, res) => {
     if (err) {
       console.error(err);
     }
-    JSON.parse(courses);
-    res.send(courses);
+    const results = JSON.parse(courses);
+    
+    res.send(results);
   });
 });
 
@@ -130,11 +131,9 @@ app.put('/api/courses/:id/', (req, res) => {
     res.send(course);
     });
 
-
 });
 
 // DELETE by ID
-
 app.delete("/api/courses/:id", (req, res) => {
   fs.readFile(coursesPatch, "utf-8", (err, courses) => {
     if (err) {
@@ -142,9 +141,7 @@ app.delete("/api/courses/:id", (req, res) => {
     }
 
     const allCourses = JSON.parse(courses);
-  
-
-    
+   
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
     if (!course) return res.status(404).send('The course with the given ID was not found');
 
@@ -164,10 +161,6 @@ app.delete("/api/courses/:id", (req, res) => {
     });
   });
 });
-
-
-
-
 
 
 //PORT
