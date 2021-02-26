@@ -18,7 +18,7 @@ Refactorying REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48
 
 ## Screenshots
 
-![Example screenshot](Screenshot 2021-02-26 at 13.52.11.png)
+![Example screenshot](planning/Screenshot 2021-02-26 at 13.52.11.png)
 
 ## Technologies
 
