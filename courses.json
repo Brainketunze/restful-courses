@@ -4,12 +4,24 @@
   "name": "HYF"
  },
  {
-  "id": 3,
+  "id": 2,
   "name": "Mosh"
  },
  {
-  "id": 6,
+  "id": 3,
   "name": "Becode"
+ },
+ {
+  "id": 4,
+  "name": "new course"
+ },
+ {
+  "id": 5,
+  "name": "new course"
+ },
+ {
+  "id": 6,
+  "name": "new course"
  },
  {
   "id": 7,
@@ -21,18 +33,6 @@
  },
  {
   "id": 9,
-  "name": "new course"
- },
- {
-  "id": 10,
-  "name": "new course"
- },
- {
-  "id": 11,
-  "name": "new course"
- },
- {
-  "id": 12,
-  "name": "new course"
+  "name": "new course from post"
  }
 ]
