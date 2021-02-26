@@ -4,7 +4,7 @@
   "description": "Refactoring REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48",
   "main": "./public/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./public/index.js"
   },
   "repository": {
     "type": "git",
