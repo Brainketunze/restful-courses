@@ -1,7 +1,7 @@
 {
   "name": "restful-courses",
   "version": "1.0.0",
-  "description": "Refactorying REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48",
+  "description": "Refactoring REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48",
   "main": "./public/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

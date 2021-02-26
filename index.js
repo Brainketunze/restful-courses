@@ -126,6 +126,39 @@ app.put('/api/courses/:id/', (req, res) => {
 
 });
 
+// DELETE by ID
+
+app.delete("/api/courses/:id", (req, res) => {
+  fs.readFile(coursesPatch, "utf-8", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+
+    const allCourses = JSON.parse(data);
+  
+
+    
+    const course = allCourses.find((c) => c.id === parseInt(req.params.id));
+    if (!course) return res.status(404).send('The course with the given ID was not found');
+
+    const courseIndex = allCourses.indexOf(course);
+    allCourses.splice(courseIndex, 1);
+    res.send(course);
+
+    const stringifyCourses = JSON.stringify(allCourses, null, 1);
+
+    // write the new changes to course.json
+    fs.writeFile(coursesPatch, stringifyCourses, (err) => {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      console.log(" the course has been deleted successfully");
+    });
+  });
+});
+
+
 
 
 
@@ -133,3 +166,5 @@ app.put('/api/courses/:id/', (req, res) => {
 //PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
