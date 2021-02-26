@@ -13,13 +13,14 @@ app.use(express.json());
 const coursesPatch = `${__dirname}/courses.json`;
 
 app.get('/', (req, res) => {
-  res.send(`<div style="text-align:center; margin-top:10%; ">
+  res.send(`<body style="background: coral">
+  <div style="text-align:center; margin-top:10%; ">
   <h3 style="color:gold">Group-1</h3>
   <h1>Welcome to  RESTFUL API courses </h1>
   <h2><a href="http://localhost:3000/api/courses" style ="color : blue">Access all the courses</h2></a>
   <h2><a href="http://localhost:3000/api/courses/1" style ="color : blue">Access a specific course with id</h2></a>
   <h2><a href="https://www.postman.com/" style ="color : blue">Use Postman to: </a><span style ="color : red"> <br> GET <br>POST <br> PUT <br>DELETE</span></h3>
-</div> `);
+</div></body> `);
 });
 
 // GET a single course by id from courses.json
