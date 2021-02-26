@@ -8,18 +8,6 @@
   "name": "Mosh"
  },
  {
-  "id": 4,
-  "name": "REpresentational"
- },
- {
-  "id": 5,
-  "name": "State"
- },
- {
-  "id": 6,
-  "name": "Transfer"
- },
- {
   "id": 6,
   "name": "Becode"
  },
@@ -46,5 +34,17 @@
  {
   "id": 12,
   "name": "new course"
+ },
+ {
+  "id": 11,
+  "name": "New Course"
+ },
+ {
+  "id": 12,
+  "name": "New Course"
+ },
+ {
+  "id": 12,
+  "name": "New Course"
  }
 ]

@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const Joi = require("joi");
-const { send } = require('process');
+
 
 app.use(express.json());
 
@@ -129,12 +129,12 @@ app.put('/api/courses/:id/', (req, res) => {
 // DELETE by ID
 
 app.delete("/api/courses/:id", (req, res) => {
-  fs.readFile(coursesPatch, "utf-8", (err, data) => {
+  fs.readFile(coursesPatch, "utf-8", (err, courses) => {
     if (err) {
       console.log(err);
     }
 
-    const allCourses = JSON.parse(data);
+    const allCourses = JSON.parse(courses);
   
 
     
@@ -153,7 +153,7 @@ app.delete("/api/courses/:id", (req, res) => {
         res.status(500).send(err);
         return;
       }
-      console.log(" the course has been deleted successfully");
+      console.log(" The course has been deleted ");
     });
   });
 });
