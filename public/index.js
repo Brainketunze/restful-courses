@@ -58,13 +58,15 @@ app.post('/api/courses/', (req, res) => {
     console.log(typeof courses);
     let parsedCourses = JSON.parse(courses);
 
+    const num = parsedCourses[parsedCourses.length - 1]['id']+1;
+
     const course = {
-      id: parsedCourses.length + 1,
+      id: num,
       name: req.body.name,
     };
     parsedCourses.push(course);
 
-    const stringifiedCourses = JSON.stringify(parsedCourses, null, 1);
+    const stringifiedCourses = JSON.stringify(parsedCourses, null, 3);
 
     fs.writeFile(coursesPatch, stringifiedCourses, 'utf-8', (err) => {
       if (err) {
