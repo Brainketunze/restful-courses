@@ -4,7 +4,8 @@
   "description": "Refactoring REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48",
   "main": "./public/index.js",
   "scripts": {
-    "start": "nodemon ./public/index.js"
+    "watch": "nodemon ./public/index.js",
+    "start": "node ./public/index.js"
   },
   "repository": {
     "type": "git",

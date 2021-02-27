@@ -14,7 +14,7 @@ Refactorying REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48
 
 ## General info
 
-> A simple RESTful API . the objective is using `express` , `node` , and `Postman` to create and test RESTful API and read and write to `json` file using the file system `fs` in node.
+> A simple RESTful API. The objective is using `express` , `node` , and `Postman` to create and test RESTful API and read and write to `json` file using the file system `fs` in node.
 
 ## Screenshots
 
@@ -34,7 +34,9 @@ Refactorying REST tutorial https://www.youtube.com/watch?v=pKd0Rpw7O48
 
 - `npm install`
 
-- `npm start`
+- `npm run start`
+
+- `npm run watch`
 
 - use `Postman` to `GET`, `POST` , `PUT` and `DELETE` course(s)
 

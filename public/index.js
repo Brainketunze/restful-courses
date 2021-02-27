@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
   <h1>Welcome to  RESTFUL API courses </h1>
   <h2><a href="./api/courses" style ="color : blue">Access all the courses</h2></a>
   <h2><a href="./api/courses/1" style ="color : blue">Access a specific course with id</h2></a>
+  <h2><a href="./util" style ="color : blue">Utility</h2></a>
   <h2><a href="https://www.postman.com/" style ="color : blue">Use Postman to: </a><span style ="color : red"> <br> GET <br>POST <br> PUT <br>DELETE</span></h3>
 </div></body> `);
 });
@@ -91,7 +92,7 @@ app.get('/api/courses/', (req, res) => {
       console.error(err);
     }
     const results = JSON.parse(courses);
-    
+
     res.send(results);
   });
 });
@@ -99,37 +100,25 @@ app.get('/api/courses/', (req, res) => {
 
 //UPDATE or EDIT
 app.put('/api/courses/:id/', (req, res) => {
-  
+
   fs.readFile(coursesPatch, 'utf-8', (err, courses) => {
     if (err) return console.error(err);
 
     const allCourses = JSON.parse(courses);
-
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
     if (!course) return res.status(404).send('The course with the given ID was not found');
 
-    /* check these:
-    res.send(course['name']);
-    res.send(req.body.name);
-    res.send(allCourses);
-    res.send(req.params.id);
-    */
+    course['name'] = req.body.name;
 
-    //an element of the array is the id - 1
-    const num = req.params.id -1;
-    allCourses[num]['name'] = req.body.name;
-
-    const data = JSON.stringify(allCourses, '  ', 1);
+    const data = JSON.stringify(allCourses, null, 3);
 
     fs.writeFileSync(coursesPatch, data, (err) => {
       if (err) {
         res.status(500).send(err.message);
       }
-
     });
-
-    res.send(course);
-    });
+    res.send(data);
+  });
 
 });
 
@@ -141,7 +130,7 @@ app.delete("/api/courses/:id", (req, res) => {
     }
 
     const allCourses = JSON.parse(courses);
-   
+
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
     if (!course) return res.status(404).send('The course with the given ID was not found');
 
@@ -162,9 +151,12 @@ app.delete("/api/courses/:id", (req, res) => {
   });
 });
 
+//Utility
+app.get('/util', (req, res) => {
+  const path = require('path');
+  res.sendFile(path.join(__dirname + '/util.html'));
+});
 
 //PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
-

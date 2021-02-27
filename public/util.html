@@ -4,27 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Util</title>
+    <title>Utility</title>
 </head>
+<style>
+    input[type=number] {
+        width: 80px;
+    }
+</style>
 
 <body style="background: coral">
-    <div style="padding: 30px 12px 12px 12px; text-align:center;">
-        <h1>Welcome to RESTFUL API courses </h1>
-        <div>
+    <div style="padding: 50px 12px 12px 12px; text-align:center;">
+        <h1>RESTFUL API courses utility</h1>
+        <div style="padding-top: 50px;">
             <!-- read -->
             <button id='btnCourses'>get courses</button>
             <button id='btnCourse'>get course</button>
-            <input type="number" id="courseId" min="10" max="100" maxlength="3" size="3">
+            <input type="number" id="courseId" min="10" max="100" placeholder="course id">
             <!-- create -->
             | <button id='btnPostCourse'>new course</button>
-            <input type="text" id="newCourseText" maxlength="30" size="6">
+            <input type="text" id="newCourseText" maxlength="30" size="6" placeholder="course name">
             <!-- update -->
             | <button id='btnPutCourse'>edit course</button>
-            <input type="number" id="editCourseId" min="10" max="100" maxlength="3" size="3">
-            <input type="text" id="editCourseText" maxlength="30" size="6"> |
+            <input type="number" id="editCourseId" min="10" max="100" placeholder="course id">
+            <input type="text" id="editCourseText" maxlength="30" size="6" placeholder="course name"> |
             <!-- delete -->
             <button id='btnDeleteCourse'>delete course</button>
-            <input type="number" id="deleteCourseId" min="10" max="100" maxlength="3" size="3">
+            <input type="number" id="deleteCourseId" min="10" max="100" placeholder="course id">
             <div id="results" style="background-color: #F7F7F7; border-radius: 8px; margin-top: 80px; text-align:left;">
             </div>
         </div>
@@ -33,7 +38,7 @@
     <script>
         /*
 
-        The number of requests is limited to 50 per 60 minutes.
+        NB: The number of requests is limited to 50 per 60 minutes.
 
 
         https://www.youtube.com/watch?v=YJ7ZgGnhN5k
@@ -42,9 +47,6 @@
         https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript
         */
 
-        // const href = window.location.href;
-        // var url = href.substring(0, href.lastIndexOf('/')) + "/";
-        // console.log(url);
 
         //Event listeners
         const res = document.getElementById('results');
@@ -56,9 +58,27 @@
 
         const pad = () => res.style.padding = '12px';
 
+        let myUrl, tobeFetched;
+        let local = false;
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+
+            const choice = window.confirm("do you want to run this utility locally?");
+            //running util locally
+            if (choice) {
+                local = true;
+                const href = window.location.href;
+                var url = href.substring(0, href.lastIndexOf('/'));
+                myUrl = url;
+                toBeFetched = myUrl;
+            } else {
+                local = false;
+            }
+        }
         //URL + CORS
-        const myUrl = 'https://mysterious-brook-41516.herokuapp.com';
-        const toBeFetched = `https://cors-anywhere.herokuapp.com/${myUrl}`
+        if (!local) {
+            myUrl = 'https://mysterious-brook-41516.herokuapp.com';
+            toBeFetched = `https://cors-anywhere.herokuapp.com/${myUrl}`
+        }
 
 
         const myHeaders = new Headers();
@@ -76,12 +96,11 @@
             fetch(toBeFetched + "/api/courses/", requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    console.log(result);
                     const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
                     res.innerHTML = `<pre>${jsonPretty}</pre>`;
                 })
                 .catch(error => {
-                    res.innerHTML = '<pre>nothing found</pre>';
+                    res.innerHTML = `<pre>${error}</pre>`;
                     console.log('error', error);
                 });
 
@@ -91,16 +110,14 @@
         function getCourse() {
             pad();
             const num = document.getElementById("courseId").value;
-            console.log('number', num);
             fetch(toBeFetched + "/api/courses/" + String(num), requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    console.log(result);
                     const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
                     res.innerHTML = `<pre>${jsonPretty}</pre>`;
                 })
                 .catch(error => {
-                    res.innerHTML = `<pre>nothing found</pre>`;
+                    res.innerHTML = `<pre>${error}</pre>`;
                     console.log('error', error);
                 });
         }
@@ -131,8 +148,7 @@
                     res.innerHTML = `<pre>${jsonPretty}</pre>`;
                 })
                 .catch(error => {
-                    pad();
-                    res.innerHTML = `<pre>couldn't save the course</pre>`;
+                    res.innerHTML = `<pre>${error}</pre>`;
                     console.log('error', error);
                 });
         }
@@ -166,12 +182,11 @@
             fetch(toBeFetched + "/api/courses/" + num, requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    console.log(result);
                     res.innerHTML = `<pre>${result}</pre>`;
                 })
                 .catch(error => {
-                    res.innerHTML = '<pre>nothing found here</pre>';
                     console.log('error', error);
+                    res.innerHTML = `<pre>${error}</pre>`;
                 });
         }
 
@@ -192,8 +207,13 @@
 
             fetch(toBeFetched + "/api/courses/" + num, requestOptions)
                 .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+                .then(result => {
+                    res.innerHTML = `<pre>${result}</pre>`;
+                })
+                .catch(error => {
+                    res.innerHTML = `<pre>${error}</pre>`;
+                    console.log('error', error);
+                });
         }
     </script>
 </body>
