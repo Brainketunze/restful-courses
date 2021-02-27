@@ -1,38 +1,37 @@
-[
- {
-  "id": 1,
-  "name": "HYF"
- },
- {
-  "id": 2,
-  "name": "Mosh"
- },
- {
-  "id": 3,
-  "name": "Becode"
- },
- {
-  "id": 4,
-  "name": "new course"
- },
- {
-  "id": 5,
-  "name": "new course"
- },
- {
-  "id": 6,
-  "name": "new course"
- },
- {
-  "id": 7,
-  "name": "new course"
- },
- {
-  "id": 8,
-  "name": "new course"
- },
- {
-  "id": 9,
-  "name": "new course from post"
- }
+[{
+        "id": 1,
+        "name": "HYF"
+    },
+    {
+        "id": 2,
+        "name": "Mosh"
+    },
+    {
+        "id": 3,
+        "name": "Becode"
+    },
+    {
+        "id": 4,
+        "name": "new course"
+    },
+    {
+        "id": 5,
+        "name": "new course"
+    },
+    {
+        "id": 6,
+        "name": "new course"
+    },
+    {
+        "id": 7,
+        "name": "new course"
+    },
+    {
+        "id": 8,
+        "name": "new course"
+    },
+    {
+        "id": 9,
+        "name": "new course from post"
+    }
 ]

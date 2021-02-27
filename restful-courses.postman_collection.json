@@ -28,16 +28,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/courses/12",
-					"protocol": "http",
+					"raw": "{{url}}/api/courses/10",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"courses",
-						"12"
+						"10"
 					]
 				},
 				"description": "delete a single course by id"
@@ -58,7 +56,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"new course from post\"\n}",
+					"raw": "{\n\t\"name\": \"new course from post, it works\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,12 +64,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/courses/",
-					"protocol": "http",
+					"raw": "{{url}}/api/courses/",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"courses",
@@ -107,12 +103,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/courses/",
-					"protocol": "http",
+					"raw": "{{url}}/api/courses/",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"courses",
@@ -137,7 +131,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"new course name\"\n}",
+					"raw": "{\n\t\"name\": \"PUT text\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -145,16 +139,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/courses/1",
-					"protocol": "http",
+					"raw": "{{url}}/api/courses/10",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"courses",
-						"1"
+						"10"
 					]
 				},
 				"description": "update course's name by id"
@@ -186,12 +178,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/courses/1",
-					"protocol": "http",
+					"raw": "{{url}}/api/courses/1",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"courses",
@@ -208,12 +198,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/",
-					"protocol": "http",
+					"raw": "{{url}}/",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						""
 					]
@@ -221,6 +209,41 @@
 				"description": "welcome page"
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "871a88eb-2894-4520-b494-6fc4930683c9",
+				"type": "text/javascript",
+				"exec": [
+					"let newUrl = 'https://mysterious-brook-41516.herokuapp.com';",
+					"pm.variables.set(\"url\", newUrl);",
+					"",
+					"let urlUpdated = pm.variables.get(\"url\");",
+					"",
+					"console.log(`the new url is ${ urlUpdated}`);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6a87ea1f-0bd8-4479-9d8b-e21ebb9058db",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "293cb9a2-ca3f-4a6e-96a0-607cdfdca663",
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "string"
 		}
 	],
 	"protocolProfileBehavior": {}

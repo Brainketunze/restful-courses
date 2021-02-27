@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Util</title>
+</head>
+
+<body style="background: coral">
+    <div style="padding: 30px 12px 12px 12px; text-align:center;">
+        <h1>Welcome to RESTFUL API courses </h1>
+        <div>
+            <!-- read -->
+            <button id='btnCourses'>get courses</button>
+            <button id='btnCourse'>get course</button>
+            <input type="number" id="courseId" min="10" max="100" maxlength="3" size="3">
+            <!-- create -->
+            | <button id='btnPostCourse'>new course</button>
+            <input type="text" id="newCourseText" maxlength="30" size="6">
+            <!-- update -->
+            | <button id='btnPutCourse'>edit course</button>
+            <input type="number" id="editCourseId" min="10" max="100" maxlength="3" size="3">
+            <input type="text" id="editCourseText" maxlength="30" size="6"> |
+            <!-- delete -->
+            <button id='btnDeleteCourse'>delete course</button>
+            <input type="number" id="deleteCourseId" min="10" max="100" maxlength="3" size="3">
+            <div id="results" style="background-color: #F7F7F7; border-radius: 8px; margin-top: 80px; text-align:left;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+
+        The number of requests is limited to 50 per 60 minutes.
+
+
+        https://www.youtube.com/watch?v=YJ7ZgGnhN5k
+        https://github.com/Rob--W/cors-anywhere/
+        https://github.com/Rob--W/cors-anywhere/blob/master/demo.html
+        https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript
+        */
+
+        // const href = window.location.href;
+        // var url = href.substring(0, href.lastIndexOf('/')) + "/";
+        // console.log(url);
+
+        //Event listeners
+        const res = document.getElementById('results');
+        btnCourses.addEventListener('click', getCourses);
+        btnCourse.addEventListener('click', getCourse);
+        btnPostCourse.addEventListener('click', postCourse);
+        btnPutCourse.addEventListener('click', editCourse);
+        btnDeleteCourse.addEventListener('click', deleteCourse);
+
+        const pad = () => res.style.padding = '12px';
+
+        //URL + CORS
+        const myUrl = 'https://mysterious-brook-41516.herokuapp.com';
+        const toBeFetched = `https://cors-anywhere.herokuapp.com/${myUrl}`
+
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        //global GET
+        function getCourses() {
+            pad();
+            fetch(toBeFetched + "/api/courses/", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                    res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                })
+                .catch(error => {
+                    res.innerHTML = '<pre>nothing found</pre>';
+                    console.log('error', error);
+                });
+
+        }
+
+        //single GET
+        function getCourse() {
+            pad();
+            const num = document.getElementById("courseId").value;
+            console.log('number', num);
+            fetch(toBeFetched + "/api/courses/" + String(num), requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                    res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                })
+                .catch(error => {
+                    res.innerHTML = `<pre>nothing found</pre>`;
+                    console.log('error', error);
+                });
+        }
+
+        //POST
+        function postCourse() {
+            pad();
+            const newCourse = document.getElementById("newCourseText").value;
+            if (!newCourse) {
+                res.innerHTML = `<pre>there is no text</pre>`;
+                return;
+            }
+
+            const raw = JSON.stringify({
+                "name": newCourse
+            });
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(toBeFetched + "/api/courses/", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                    res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                })
+                .catch(error => {
+                    pad();
+                    res.innerHTML = `<pre>couldn't save the course</pre>`;
+                    console.log('error', error);
+                });
+        }
+
+        //PUT
+        function editCourse() {
+            pad();
+            const editCourse = document.getElementById("editCourseText").value;
+            if (!editCourse) {
+                res.innerHTML = '<pre>there is no text</pre>';
+                return;
+            }
+
+            const num = document.getElementById("editCourseId").value;
+            if (!num) {
+                res.innerHTML = '<pre>no number selected</pre>';
+                return;
+            }
+
+            const raw = JSON.stringify({
+                "name": editCourse
+            });
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(toBeFetched + "/api/courses/" + num, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    res.innerHTML = `<pre>${result}</pre>`;
+                })
+                .catch(error => {
+                    res.innerHTML = '<pre>nothing found here</pre>';
+                    console.log('error', error);
+                });
+        }
+
+        //DELETE
+        function deleteCourse() {
+            pad();
+            const num = document.getElementById("deleteCourseId").value;
+            if (!num) {
+                res.innerHTML = '<pre>no number selected</pre>';
+                return;
+            }
+
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch(toBeFetched + "/api/courses/" + num, requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+    </script>
+</body>
+
+</html>
