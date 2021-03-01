@@ -32,10 +32,12 @@ app.get('/api/courses/:id', (req, res) => {
     }
 
     const allCourses = JSON.parse(courses);
-
+    
+    
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
+    //console.log('res test', course)
     if (!course) return res.status(404).send('The course with the given ID was not found');
-
+    console.log('res', course)
     res.send(course);
   });
 });

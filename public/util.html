@@ -96,8 +96,13 @@
             fetch(toBeFetched + "/api/courses/", requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
-                    res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    try {
+                        const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                        res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    } catch (e) {
+                        res.innerHTML = 'not work'
+                    }
+
                 })
                 .catch(error => {
                     res.innerHTML = `<pre>${error}</pre>`;
@@ -109,17 +114,27 @@
         //single GET
         function getCourse() {
             pad();
-            const num = document.getElementById("courseId").value;
-            fetch(toBeFetched + "/api/courses/" + String(num), requestOptions)
+            let num = document.getElementById("courseId").value;
+            if (num === '') {
+                res.innerHTML = 'no id selected';
+                return;
+            };
+            fetch(toBeFetched + "/api/courses/" + num, requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
-                    res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    //check if result can be parsed as JSON or not
+                    try {
+                        const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                        res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    } catch (e) {
+                        res.innerHTML = `<pre>${result}</pre>`;
+                    }
                 })
                 .catch(error => {
                     res.innerHTML = `<pre>${error}</pre>`;
                     console.log('error', error);
                 });
+
         }
 
         //POST
@@ -144,8 +159,13 @@
             fetch(toBeFetched + "/api/courses/", requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
-                    res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    try {
+                        const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                        res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    } catch (e) {
+                        res.innerHTML = `<pre>${result}</pre>`;
+                    }
+
                 })
                 .catch(error => {
                     res.innerHTML = `<pre>${error}</pre>`;
