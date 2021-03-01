@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
   <h1>Welcome to  RESTFUL API courses </h1>
   <h2><a href="./api/courses" style ="color : blue">Access all the courses</h2></a>
   <h2><a href="./api/courses/1" style ="color : blue">Access a specific course with id</h2></a>
+  <h2><a href="./util" style ="color : blue">Utility</h2></a>
   <h2><a href="https://www.postman.com/" style ="color : blue">Use Postman to: </a><span style ="color : red"> <br> GET <br>POST <br> PUT <br>DELETE</span></h3>
 </div></body> `);
 });
@@ -31,10 +32,12 @@ app.get('/api/courses/:id', (req, res) => {
     }
 
     const allCourses = JSON.parse(courses);
-
+    
+    
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
+    //console.log('res test', course)
     if (!course) return res.status(404).send('The course with the given ID was not found');
-
+    console.log('res', course)
     res.send(course);
   });
 });
@@ -44,6 +47,7 @@ app.get('/api/courses/:id', (req, res) => {
 
 app.post('/api/courses/', (req, res) => {
 
+  //tcheck if the input is minimum 3 characters long
   const {
     error
   } = validateCourse(req.body);
@@ -57,13 +61,15 @@ app.post('/api/courses/', (req, res) => {
     console.log(typeof courses);
     let parsedCourses = JSON.parse(courses);
 
+    const num = parsedCourses[parsedCourses.length - 1]['id']+1;
+
     const course = {
-      id: parsedCourses.length + 1,
+      id: num,
       name: req.body.name,
     };
     parsedCourses.push(course);
 
-    const stringifiedCourses = JSON.stringify(parsedCourses, null, 1);
+    const stringifiedCourses = JSON.stringify(parsedCourses, null, 3);
 
     fs.writeFile(coursesPatch, stringifiedCourses, 'utf-8', (err) => {
       if (err) {
@@ -75,7 +81,6 @@ app.post('/api/courses/', (req, res) => {
 });
 
 // VALIDATE course function
-
 function validateCourse(course) {
   const schema = Joi.object({
     name: Joi.string().min(3).required(),
@@ -91,7 +96,7 @@ app.get('/api/courses/', (req, res) => {
       console.error(err);
     }
     const results = JSON.parse(courses);
-    
+
     res.send(results);
   });
 });
@@ -99,37 +104,25 @@ app.get('/api/courses/', (req, res) => {
 
 //UPDATE or EDIT
 app.put('/api/courses/:id/', (req, res) => {
-  
+
   fs.readFile(coursesPatch, 'utf-8', (err, courses) => {
     if (err) return console.error(err);
 
     const allCourses = JSON.parse(courses);
-
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
     if (!course) return res.status(404).send('The course with the given ID was not found');
 
-    /* check these:
-    res.send(course['name']);
-    res.send(req.body.name);
-    res.send(allCourses);
-    res.send(req.params.id);
-    */
+    course['name'] = req.body.name;
 
-    //an element of the array is the id - 1
-    const num = req.params.id -1;
-    allCourses[num]['name'] = req.body.name;
-
-    const data = JSON.stringify(allCourses, '  ', 1);
+    const data = JSON.stringify(allCourses, null, 3);
 
     fs.writeFileSync(coursesPatch, data, (err) => {
       if (err) {
         res.status(500).send(err.message);
       }
-
     });
-
-    res.send(course);
-    });
+    res.send(data);
+  });
 
 });
 
@@ -141,7 +134,7 @@ app.delete("/api/courses/:id", (req, res) => {
     }
 
     const allCourses = JSON.parse(courses);
-   
+
     const course = allCourses.find((c) => c.id === parseInt(req.params.id));
     if (!course) return res.status(404).send('The course with the given ID was not found');
 
@@ -162,9 +155,12 @@ app.delete("/api/courses/:id", (req, res) => {
   });
 });
 
+//Utility
+app.get('/util', (req, res) => {
+  const path = require('path');
+  res.sendFile(path.join(__dirname + '/util.html'));
+});
 
 //PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
-

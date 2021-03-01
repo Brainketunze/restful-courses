@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility</title>
+</head>
+<style>
+    input[type=number] {
+        width: 80px;
+    }
+</style>
+
+<body style="background: coral">
+    <div style="padding: 50px 12px 12px 12px; text-align:center;">
+        <h1>RESTFUL API courses utility</h1>
+        <div style="padding-top: 50px;">
+            <!-- read -->
+            <button id='btnCourses'>get courses</button>
+            <button id='btnCourse'>get course</button>
+            <input type="number" id="courseId" min="10" max="100" placeholder="course id">
+            <!-- create -->
+            | <button id='btnPostCourse'>new course</button>
+            <input type="text" id="newCourseText" maxlength="30" size="6" placeholder="course name">
+            <!-- update -->
+            | <button id='btnPutCourse'>edit course</button>
+            <input type="number" id="editCourseId" min="10" max="100" placeholder="course id">
+            <input type="text" id="editCourseText" maxlength="30" size="6" placeholder="course name"> |
+            <!-- delete -->
+            <button id='btnDeleteCourse'>delete course</button>
+            <input type="number" id="deleteCourseId" min="10" max="100" placeholder="course id">
+            <div id="results" style="background-color: #F7F7F7; border-radius: 8px; margin-top: 80px; text-align:left;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+        NB: The number of requests is limited to 60 per minute
+        */
+
+        //Event listeners
+        const res = document.getElementById('results');
+        btnCourses.addEventListener('click', getCourses);
+        btnCourse.addEventListener('click', getCourse);
+        btnPostCourse.addEventListener('click', postCourse);
+        btnPutCourse.addEventListener('click', editCourse);
+        btnDeleteCourse.addEventListener('click', deleteCourse);
+        //add padding to the response shown in the page
+        const pad = () => res.style.padding = '12px';
+
+        let myUrl, tobeFetched;
+        let local = false;
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+
+            const choice = window.confirm("do you want to run this utility locally?");
+            //running util locally
+            if (choice) {
+                local = true;
+                const href = window.location.href;
+                var url = href.substring(0, href.lastIndexOf('/'));
+                myUrl = url;
+                toBeFetched = myUrl;
+            } else {
+                local = false;
+            }
+        }
+        //when util is not running locally you need a CORS proxy
+        if (!local) {
+            myUrl = 'https://mysterious-brook-41516.herokuapp.com';
+            toBeFetched = `https://hyfcorsproxy.herokuapp.com/${myUrl}`;
+        }
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        //global GET
+        function getCourses() {
+            pad();
+            fetch(toBeFetched + "/api/courses/", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    try {
+                        const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                        res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    } catch (e) {
+                        res.innerHTML = 'not work'
+                    }
+
+                })
+                .catch(error => {
+                    res.innerHTML = `<pre>${error}</pre>`;
+                    console.log('error', error);
+                });
+
+        }
+
+        //single GET
+        function getCourse() {
+            pad();
+            let num = document.getElementById("courseId").value;
+            if (num === '') {
+                res.innerHTML = 'no id selected';
+                return;
+            };
+            fetch(toBeFetched + "/api/courses/" + num, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    //check if result can be parsed as JSON or not
+                    try {
+                        const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                        res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    } catch (e) {
+                        res.innerHTML = `<pre>${result}</pre>`;
+                    }
+                })
+                .catch(error => {
+                    res.innerHTML = `<pre>${error}</pre>`;
+                    console.log('error', error);
+                });
+
+        }
+
+        //POST
+        function postCourse() {
+            pad();
+            const newCourse = document.getElementById("newCourseText").value;
+            if (!newCourse) {
+                res.innerHTML = `<pre>there is no text</pre>`;
+                return;
+            }
+
+            const raw = JSON.stringify({
+                "name": newCourse
+            });
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(toBeFetched + "/api/courses/", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    try {
+                        const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
+                        res.innerHTML = `<pre>${jsonPretty}</pre>`;
+                    } catch (e) {
+                        res.innerHTML = `<pre>${result}</pre>`;
+                    }
+
+                })
+                .catch(error => {
+                    res.innerHTML = `<pre>${error}</pre>`;
+                    console.log('error', error);
+                });
+        }
+
+        //PUT
+        function editCourse() {
+            pad();
+            const editCourse = document.getElementById("editCourseText").value;
+            if (!editCourse) {
+                res.innerHTML = '<pre>there is no text</pre>';
+                return;
+            }
+
+            const num = document.getElementById("editCourseId").value;
+            if (!num) {
+                res.innerHTML = '<pre>no number selected</pre>';
+                return;
+            }
+
+            const raw = JSON.stringify({
+                "name": editCourse
+            });
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(toBeFetched + "/api/courses/" + num, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    res.innerHTML = `<pre>${result}</pre>`;
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    res.innerHTML = `<pre>${error}</pre>`;
+                });
+        }
+
+        //DELETE
+        function deleteCourse() {
+            pad();
+            const num = document.getElementById("deleteCourseId").value;
+            if (!num) {
+                res.innerHTML = '<pre>no number selected</pre>';
+                return;
+            }
+
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch(toBeFetched + "/api/courses/" + num, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    res.innerHTML = `<pre>${result}</pre>`;
+                })
+                .catch(error => {
+                    res.innerHTML = `<pre>${error}</pre>`;
+                    console.log('error', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
