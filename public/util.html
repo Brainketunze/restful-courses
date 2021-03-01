@@ -37,16 +37,8 @@
 
     <script>
         /*
-
-        NB: The number of requests is limited to 50 per 60 minutes.
-
-
-        https://www.youtube.com/watch?v=YJ7ZgGnhN5k
-        https://github.com/Rob--W/cors-anywhere/
-        https://github.com/Rob--W/cors-anywhere/blob/master/demo.html
-        https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript
+        NB: The number of requests is limited to 60 per minute
         */
-
 
         //Event listeners
         const res = document.getElementById('results');
@@ -55,7 +47,7 @@
         btnPostCourse.addEventListener('click', postCourse);
         btnPutCourse.addEventListener('click', editCourse);
         btnDeleteCourse.addEventListener('click', deleteCourse);
-
+        //add padding to the response shown in the page
         const pad = () => res.style.padding = '12px';
 
         let myUrl, tobeFetched;
@@ -74,12 +66,11 @@
                 local = false;
             }
         }
-        //URL + CORS
+        //when util is not running locally you need a CORS proxy
         if (!local) {
             myUrl = 'https://mysterious-brook-41516.herokuapp.com';
-            toBeFetched = `https://cors-anywhere.herokuapp.com/${myUrl}`
+            toBeFetched = `https://hyfcorsproxy.herokuapp.com/${myUrl}`;
         }
-
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");

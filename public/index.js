@@ -47,6 +47,7 @@ app.get('/api/courses/:id', (req, res) => {
 
 app.post('/api/courses/', (req, res) => {
 
+  //tcheck if the input is minimum 3 characters long
   const {
     error
   } = validateCourse(req.body);
@@ -80,7 +81,6 @@ app.post('/api/courses/', (req, res) => {
 });
 
 // VALIDATE course function
-
 function validateCourse(course) {
   const schema = Joi.object({
     name: Joi.string().min(3).required(),
