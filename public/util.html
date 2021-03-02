@@ -91,7 +91,7 @@
                         const jsonPretty = JSON.stringify(JSON.parse(result), null, 3);
                         res.innerHTML = `<pre>${jsonPretty}</pre>`;
                     } catch (e) {
-                        res.innerHTML = 'not work'
+                        res.innerHTML = e;
                     }
 
                 })

@@ -44,10 +44,9 @@ app.get('/api/courses/:id', (req, res) => {
 
 
 //CREATE a new course
-
 app.post('/api/courses/', (req, res) => {
 
-  //tcheck if the input is minimum 3 characters long
+  //check if the input is minimum 3 characters long
   const {
     error
   } = validateCourse(req.body);
